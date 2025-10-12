@@ -11,7 +11,6 @@
         public long CategoryId { get; set; }
         public Category Category { get; set; }
 
-
         // m to m
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }
