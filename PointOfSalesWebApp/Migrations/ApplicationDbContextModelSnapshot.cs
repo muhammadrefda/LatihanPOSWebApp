@@ -52,6 +52,15 @@ namespace PointOfSalesWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Active = true,
+                            CategoryName = "Makanan ringan",
+                            CreatedAt = new DateTime(2025, 10, 15, 14, 36, 31, 892, DateTimeKind.Utc).AddTicks(4746)
+                        });
                 });
 
             modelBuilder.Entity("PointOfSalesWebApp.Models.Customer", b =>
@@ -91,6 +100,17 @@ namespace PointOfSalesWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Active = true,
+                            CreatedAt = new DateTime(2025, 10, 15, 14, 36, 31, 892, DateTimeKind.Utc).AddTicks(5035),
+                            Email = "budi@example.com",
+                            FullName = "Budi Santoso",
+                            JoinDate = new DateTime(2025, 10, 15, 14, 36, 31, 892, DateTimeKind.Utc).AddTicks(5034)
+                        });
                 });
 
             modelBuilder.Entity("PointOfSalesWebApp.Models.Product", b =>
@@ -131,6 +151,18 @@ namespace PointOfSalesWebApp.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Active = true,
+                            CategoryId = 1L,
+                            CreatedAt = new DateTime(2025, 10, 15, 21, 36, 31, 892, DateTimeKind.Local).AddTicks(5011),
+                            Price = 15000m,
+                            ProductName = "Keripik Kentang Original",
+                            Stock = 100
+                        });
                 });
 
             modelBuilder.Entity("PointOfSalesWebApp.Models.Tag", b =>
@@ -162,6 +194,14 @@ namespace PointOfSalesWebApp.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedAt = new DateTime(2025, 10, 15, 14, 36, 31, 892, DateTimeKind.Utc).AddTicks(4983),
+                            TagName = "Best Seller"
+                        });
                 });
 
             modelBuilder.Entity("PointOfSalesWebApp.Models.Transaction", b =>
