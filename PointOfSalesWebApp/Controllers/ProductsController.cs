@@ -44,7 +44,7 @@ namespace PointOfSalesWebApp.Controllers
 
         public async Task<IActionResult> Edit (long? id)
         {
-            if (id == null) return NotFound();
+            if (id == 0) return NotFound();
 
             var product = await _context.Products.FindAsync(id);
 
@@ -77,6 +77,33 @@ namespace PointOfSalesWebApp.Controllers
             }
             ViewBag.Categories = new SelectList(_context.Categories, "Id", "CategoryName", product.CategoryId);
             return View(product);
+        }
+
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == 0) return NotFound();
+
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (product == null) return NotFound();
+
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
+            {
+                _context.Products.Remove(product); // Hapus produk dari DbContext
+            }
+
+            await _context.SaveChangesAsync(); // Simpan perubahan ke database
+            return RedirectToAction(nameof(Index));
         }
     }
 }
