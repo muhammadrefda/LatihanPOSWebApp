@@ -1,7 +1,10 @@
-﻿namespace PointOfSalesWebApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PointOfSalesWebApp.Models
 {
     public class Product : BaseEntity
     {
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApp.Data;
 
@@ -15,6 +16,13 @@ namespace PointOfSalesWebApp.Controllers
         {
             var products = await _context.Products.Include(p => p.Category).ToListAsync();
             return View(products);
+        }
+
+        public IActionResult Create()
+        {
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "CategoryName");
+
+            return View();
         }
     }
 }
