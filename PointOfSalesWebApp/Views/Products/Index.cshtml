@@ -13,6 +13,7 @@
             <th>Kategori</th>
             <th>Harga</th>
             <th>Stok</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,9 @@
                 <td>@product.Category.CategoryName</td>
                 <td>@product.Price.ToString("C", new System.Globalization.CultureInfo("id-ID"))</td>
                 <td>@product.Stock</td>
+                <td>
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-primary">Edit</a>
+                </td>
         </tr>
         }
     </tbody>

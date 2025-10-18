@@ -41,5 +41,42 @@ namespace PointOfSalesWebApp.Controllers
             ViewBag.Categories = new SelectList(_context.Categories, "Id", "CategoryName", product.CategoryId);
             return View(product);
         }
+
+        public async Task<IActionResult> Edit (long? id)
+        {
+            if (id == null) return NotFound();
+
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null) return NotFound();
+
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "CategoryName", product.CategoryId);
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(long id, Product product)
+        {
+            if (id != product.Id) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(product); // Tandai produk ini sebagai "sudah diubah"
+                    await _context.SaveChangesAsync(); // Simpan perubahan ke database
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    // Handle jika produk sudah dihapus orang lain, dll.
+                    if (!_context.Products.Any(e => e.Id == product.Id)) return NotFound();
+                    else throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "CategoryName", product.CategoryId);
+            return View(product);
+        }
     }
 }
