@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApp.Data;
+using PointOfSalesWebApp.Models;
 
 namespace PointOfSalesWebApp.Controllers
 {
@@ -23,6 +24,22 @@ namespace PointOfSalesWebApp.Controllers
             ViewBag.Categories = new SelectList(_context.Categories, "Id", "CategoryName");
 
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(product); // 1. Tambahkan produk ke DbContext
+                await _context.SaveChangesAsync(); // 2. Simpan perubahan ke database
+                return RedirectToAction(nameof(Index)); // 3. Kembali ke halaman daftar produk
+            }
+            // Jika data tidak valid, tampilkan kembali form dengan data yang sudah diisi
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "CategoryName", product.CategoryId);
+            return View(product);
         }
     }
 }
