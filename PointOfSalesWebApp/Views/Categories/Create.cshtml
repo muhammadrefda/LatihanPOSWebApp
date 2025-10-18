@@ -1,0 +1,19 @@
+﻿@model PointOfSalesWebApp.Models.Category
+
+<h1>Tambah Kategori</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="CategoryName" class="control-label"></label>
+        <input asp-for="CategoryName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Simpan" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Batal</a>
+    </div>
+</form>

@@ -1,0 +1,24 @@
+﻿@model PointOfSalesWebApp.Models.Category
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="CategoryName" class="control-label"></label>
+        <input asp-for="CategoryName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Active" class="control-label"></label>
+        <select asp-for="Active" class="form-control" asp-items="ViewBag.ActiveList">
+            <option value="">-- Pilih Status --</option>
+        </select>
+    </div>
+    <span asp-validation-for="Active" class="text-danger"></span>
+    <br />
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Simpan" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Batal</a>
+</form>
