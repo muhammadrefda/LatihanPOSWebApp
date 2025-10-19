@@ -94,7 +94,7 @@ namespace PointOfSalesWebApp.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long? id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product != null)
